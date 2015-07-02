@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/TakesxiSximada/happywebgl/issues"
   },
-  "homepage": "https://github.com/TakesxiSximada/happywebgl"
+  "homepage": "https://github.com/TakesxiSximada/happywebgl",
+  "dependencies": {
+    "bower": "^1.4.1"
+  }
 }
