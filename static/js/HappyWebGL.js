@@ -88,9 +88,10 @@ HappyWebGL.GlobalView.prototype = {
     },
     // viewインフラ関連初期状態構築
     init: function (){
+
         this.scene = new THREE.Scene();
         this.cameras = {};
-        this.install_camera('main', new THREE.PerspectiveCamera(75, this.aspect, 0.1, 1000));
+        this.install_camera('main', new THREE.PerspectiveCamera(30, this.aspect, 0.1, 100));
         this.switch_camera('main');
         this.renderer = new THREE.WebGLRenderer();
         this.install_dom(this.renderer);
@@ -98,17 +99,18 @@ HappyWebGL.GlobalView.prototype = {
     // オブジェクト関連初期状態構築
     setup: function (){
         this.cube = this.create_cube();
-        this.current_camera.position.z = 5;
+        this.current_camera.position.set(0, 0, 5);
         this.scene.add(this.cube);
     },
     // オブジェクト/インフラ描画更新処理
     update: function (){
-        this.cube.rotation.x += 0.1;
-        this.cube.rotation.y += 0.1;
-        this.cube.rotation.z += 0.1;
+        this.cube.rotation.x += 0.01;
+        this.cube.rotation.y += 0.01;
+        this.cube.rotation.z += 0.01;
     },
     // 描画スタート
     start: function (){
+        this.resize();
         this.animate();
     },
     // 立方体作成
