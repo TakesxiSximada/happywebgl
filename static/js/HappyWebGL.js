@@ -102,26 +102,24 @@ HappyWebGL.GlobalView.prototype = {
         this.scene = new THREE.Scene();
         this.cameras = {};
         this.trackballs = {};
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({
+            antialias: true,
+        });
+        this.renderer.setClearColor(0xffffff, 0.5);
         this.install_dom(this.renderer);
     },
     // カメラの設定
     setup_camera: function(){
-        var camera = new THREE.PerspectiveCamera(30, this.aspect, 0.1, 100);
+        var camera = new THREE.PerspectiveCamera(30, this.aspect, 0.001, 100000);
         var trackball = new THREE.TrackballControls(camera);
-        // 回転無効化と回転速度の設定
-        trackball.noRotate = false; // false:有効 true:無効
+        trackball.noRotate = false; // 回転無効化と回転速度の設定(false:有効 true:無効)
         trackball.rotateSpeed = 1.0;
-        // ズーム無効化とズーム速度の設定
-        trackball.noZoom = false; // false:有効 true:無効
+        trackball.noZoom = false; // ズーム無効化とズーム速度の設定(false:有効 true:無効)
         trackball.zoomSpeed = 1.0;
-        // パン無効化とパン速度の設定
-        trackball.noPan = false; // false:有効 true:無効
+        trackball.noPan = false; // パン無効化とパン速度の設定(false:有効 true:無効)
         trackball.panSpeed = 1.0;
-        // スタティックムーブの有効化
-        trackball.staticMoving = true; // true:スタティックムーブ false:ダイナミックムーブ
-        // ダイナミックムーブ時の減衰定数
-        trackball.dynamicDampingFactor = 0.3;
+        trackball.staticMoving = true; // スタティックムーブの有効化(true:スタティックムーブ false:ダイナミックムーブ)
+        trackball.dynamicDampingFactor = 0.3; // ダイナミックムーブ時の減衰定数
         this.install_camera('main', camera, trackball);
         this.switch_camera('main');
 
@@ -129,18 +127,36 @@ HappyWebGL.GlobalView.prototype = {
     // オブジェクト関連初期状態構築
     setup: function (){
         this.setup_camera();
-        this.cube = this.create_cube();
-        this.current_camera.position.set(0, 0, 10);
-        this.scene.add(this.cube);
 
-        var text = this.create_text();
-        this.install(text);
+        // lights
+        var alight = new THREE.AmbientLight(0x333333);
+        this.install(alight);
+
+        // objects
+
+        // cube
+        this.cube = this.create_cube();
+        this.cube.position.set(0, 0, 0);
+        this.install(this.cube);
+
+        // title
+        this.title = this.create_text('WebGL!!');
+        this.title.position.set(0, 0, 0);
+        this.title.rotation.z = 90;
+        this.install(this.title);
+
+        // sphere
+        this.earth = this.create_earth();
+        this.install(this.earth);
+
+        this.current_camera.position.set(600, 0, 20);
     },
     // オブジェクト/インフラ描画更新処理
     update: function (){
-        this.cube.rotation.x += 0.01;
-        this.cube.rotation.y += 0.01;
-        this.cube.rotation.z += 0.01;
+        this.earth.rotation.x += 0.01;
+        this.earth.rotation.y += 0.01;
+        this.earth.rotation.z += 0.01;
+        this.current_camera.lookAt(this.earth);
     },
     // 描画スタート
     start: function (){
@@ -151,13 +167,28 @@ HappyWebGL.GlobalView.prototype = {
     create_cube: function (){
         return new THREE.Mesh(
             new THREE.BoxGeometry(1, 1, 1),
-            new THREE.MeshBasicMaterial({color: 0xffffff})
+            new THREE.MeshBasicMaterial({color: 0x00ff00})
         );
     },
+    // 球体
+    create_sphere: function (texture){
+        geometry = new THREE.SphereGeometry(150, 30, 30);
+        material = new THREE.MeshBasicMaterial({
+            map: THREE.ImageUtils.loadTexture(texture),
+
+        });
+        mesh = new THREE.Mesh(geometry, material);
+        mesh.overdraw = true;
+        return mesh;
+    },
+    // 地球
+    create_earth: function (){
+        return this.create_sphere('/static/js/textures/earth.jpg');
+    },
     // 文字作成
-    create_text: function (){
-        var TextGeometry = new THREE.TextGeometry( 'Three.js!', {
-            size: 30, height: 4, curveSegments: 3,
+    create_text: function (text){
+        var TextGeometry = new THREE.TextGeometry(text, {
+            size: 100, height: 10, curveSegments: 3,
             font: "helvetiker", weight: "bold", style: "normal",
             bevelThickness: 1, bevelSize: 2, bevelEnabled: true
 
