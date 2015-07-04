@@ -7,6 +7,25 @@
     <link rel="stylesheet" media="all" href="static/css/base.css">
   </head>
   <body>
-    <h1>It works.</h1>
+    <div id="view"></div>
+    <script src="bower_components/threejs/build/three.min.js"></script>
+	<script src="lib/fonts/gentilis_bold.typeface.js"></script>
+	<script src="lib/fonts/gentilis_regular.typeface.js"></script>
+	<script src="lib/fonts/optimer_bold.typeface.js"></script>
+	<script src="lib/fonts/optimer_regular.typeface.js"></script>
+	<script src="lib/fonts/helvetiker_bold.typeface.js"></script>
+	<script src="lib/fonts/helvetiker_regular.typeface.js"></script>
+	<script src="lib/fonts/droid/droid_sans_regular.typeface.js"></script>
+	<script src="lib/fonts/droid/droid_sans_bold.typeface.js"></script>
+	<script src="lib/fonts/droid/droid_serif_regular.typeface.js"></script>
+	<script src="lib/fonts/droid/droid_serif_bold.typeface.js"></script>
+
+    <script src="static/js/HappyWebGL.js"></script>
+    <script>
+      var view = new HappyWebGL.GlobalView(window, '#view');
+      view.init();
+      view.setup();
+      view.start();
+    </script>
   </body>
 </html>
