@@ -105,7 +105,7 @@ HappyWebGL.GlobalView.prototype = {
         this.renderer = new THREE.WebGLRenderer({
             antialias: true,
         });
-        this.renderer.setClearColor(0xffffff, 0.5);
+        this.renderer.setClearColor(0x000000, 1);
         this.install_dom(this.renderer);
     },
     // カメラの設定
@@ -137,13 +137,13 @@ HappyWebGL.GlobalView.prototype = {
         // cube
         this.cube = this.create_cube();
         this.cube.position.set(0, 0, 0);
-        this.install(this.cube);
+        // this.install(this.cube);
 
         // title
         this.title = this.create_text('WebGL!!');
         this.title.position.set(0, 0, 0);
         this.title.rotation.z = 90;
-        this.install(this.title);
+        // this.install(this.title);
 
         // sphere
         this.earth = this.create_earth();

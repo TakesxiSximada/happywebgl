@@ -28,6 +28,23 @@
 
     <!--[if lt IE 9]>
         <script src="lib/js/html5shiv.js"></script> <![endif]-->
+
+
+    <meta meta="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" media="all" href="/static/css/base.css">
+    <script src="/bower_components/threejs/build/three.min.js"></script>
+	<script src="/lib/fonts/gentilis_bold.typeface.js"></script>
+	<script src="/lib/fonts/gentilis_regular.typeface.js"></script>
+	<script src="/lib/fonts/optimer_bold.typeface.js"></script>
+	<script src="/lib/fonts/optimer_regular.typeface.js"></script>
+	<script src="/lib/fonts/helvetiker_bold.typeface.js"></script>
+	<script src="/lib/fonts/helvetiker_regular.typeface.js"></script>
+	<script src="/lib/fonts/droid/droid_sans_regular.typeface.js"></script>
+	<script src="/lib/fonts/droid/droid_sans_bold.typeface.js"></script>
+	<script src="/lib/fonts/droid/droid_serif_regular.typeface.js"></script>
+	<script src="/lib/fonts/droid/droid_serif_bold.typeface.js"></script>
+	<script src="/bower_components/threejs/examples/js/controls/TrackballControls.js"></script>
+    <script src="/static/js/HappyWebGL.js"></script>
   </head>
 
   <body>
@@ -36,10 +53,10 @@
            displayed as a slide -->
       <div class="slides">
         <section>
+          <h1>*** 前哨戦 ***</h1>
           <h1>NASAをHack！</h1>
           <h2>Bluemix + Python を駆使した</h2>
           <h2>宇宙人探し奮闘記</h2>
-          <h3>(SoftLayer Bluemix Summit 2015)</h3>
           <p>
             <small>Created
               by <a href="https://about.me/TakesxiSximada">嶋田健志</a>
@@ -54,7 +71,6 @@
             <li>嶋田健志</li>
             <li>Webエンジニア</li>
             <li>Python好き</li>
-            <li>Bluemix最高!!</li>
           </ul>
         </section>
 
@@ -66,10 +82,19 @@
         </section>
 
         <section>
-          <h2>読書会もやっています</h2>
-          <a href="http://gihyo.jp/news/report/01/python-training-book-reading-club/">http://gihyo.jp/news/report/01/python-training-book-reading-club/</a>
+          <h2>【宣伝】読書会もやっています</h2>
+          <a href="http://pymook.connpass.com/event/16291/">http://pymook.connpass.com/event/16291/</a>
           <div>
             <img src="/static/img/pymook-reading-02.png" style="height: 500px;"></img>
+          </div>
+        </section>
+
+        <section>
+          <h2>【宣伝】DjangGirlsやります</h2>
+          <p>Django のワークショップ</p>
+          <a href="http://djangogirls.org/tokyo/">http://djangogirls.org/tokyo/</a>
+          <div>
+            <img src="/static/img/django-girls.png" style="height: 300px;"></img>
           </div>
         </section>
         <section>
@@ -77,6 +102,14 @@
         </section>
         <section>
           <h2>宇宙にはたくさんの星がある</h2>
+    <div id="view"></div>
+    <script>
+      var view = new HappyWebGL.GlobalView(window, '#view');
+      view.init();
+      view.setup();
+      view.start();
+    </script>
+
         </section>
         <section>
           <h2>文明を持った知的な存在も</h2>
